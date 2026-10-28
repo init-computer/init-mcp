@@ -134,7 +134,7 @@ The server uses MCP stdio transport and returns JSON text content for every tool
 
 ## Repository init.json integration
 
-Use `init_apply_project_file` with an explicit local `init.json` path and an edit request. The MCP server reads that one file, finds `project.id`, applies the edit to the matching Init project, and writes the canonical contract back to the same path. For agents that already have a parsed document, use `init_apply_project_manifest`; it returns the updated `initJson` without touching the filesystem.
+Use `init_apply_project_file` with an explicit local `init.json` path and an edit request. The MCP server reads that file, edits its project, and overwrites the file with the returned project summary. The current SDK returns an empty `tables` array in that summary, so back up or review any manifest with table definitions before using the file tool. For agents with a parsed document, `init_apply_project_manifest` returns the summary without touching the filesystem.
 
 ## Maintaining the public repository
 
