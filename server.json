@@ -1,0 +1,27 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.paulwxnter/init",
+  "description": "Init is the backend engineer for your coding agent.",
+  "repository": {
+    "url": "https://github.com/paulwxnter/init-mcp",
+    "source": "github"
+  },
+  "version": "0.1.6",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@init-computer/mcp",
+      "version": "0.1.6",
+      "transport": { "type": "stdio" },
+      "environmentVariables": [
+        {
+          "name": "INIT_API_KEY",
+          "description": "Your Init API key",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string"
+        }
+      ]
+    }
+  ]
+}
