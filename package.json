@@ -1,0 +1,30 @@
+{
+  "name": "@init-computer/mcp",
+  "version": "0.1.6",
+  "description": "Init is a programmable backend platform available through MCP for generating and running backend APIs.",
+  "type": "module",
+  "bin": {
+    "init-mcp": "bin/init-mcp.js"
+  },
+  "dependencies": {
+    "@init-computer/sdk": "0.1.8"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "homepage": "https://www.init.computer/mcp",
+  "keywords": [
+    "init",
+    "backend",
+    "api",
+    "mcp",
+    "model-context-protocol",
+    "ai-agents"
+  ],
+  "mcpName": "io.github.paulwxnter/init",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paulwxnter/init-mcp.git"
+  }
+}
