@@ -1,6 +1,6 @@
 {
   "name": "@init-computer/mcp",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Init is a programmable backend platform available through MCP for generating and running backend APIs.",
   "type": "module",
   "bin": {
