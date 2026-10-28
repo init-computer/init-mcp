@@ -22,9 +22,9 @@
     "model-context-protocol",
     "ai-agents"
   ],
-  "mcpName": "io.github.paulwxnter/init",
+  "mcpName": "io.github.init-computer/init",
   "repository": {
     "type": "git",
-    "url": "https://github.com/paulwxnter/init-mcp.git"
+    "url": "https://github.com/init-computer/init-mcp.git"
   }
 }
