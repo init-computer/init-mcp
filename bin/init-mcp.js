@@ -47,7 +47,7 @@ const tools = [
 	},
 	{
 		name: "init_apply_project_file",
-		description: "Read an explicit local init.json path, apply an Init project edit, and write the returned canonical init.json back to that same path.",
+		description: "Read an explicit local init.json path, apply an Init project edit, and overwrite the file with the returned project summary. The summary currently has an empty tables array; back up or review manifests with table definitions before using this tool.",
 		inputSchema: objectSchema({ path: stringSchema("Absolute or working-directory-relative init.json path."), prompt: stringSchema("Project change request.") }, ["path", "prompt"]),
 		handler: async ({ path: filePath, prompt }) => {
 			const absolute = path.resolve(filePath);
