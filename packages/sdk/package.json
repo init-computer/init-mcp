@@ -1,0 +1,42 @@
+{
+  "name": "@init-computer/sdk",
+  "version": "0.1.11",
+  "description": "Init is a programmable backend platform. Use the official SDK to generate and call backend endpoints with data, storage, and runtime included.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node -e \"const fs=require('fs');fs.mkdirSync('dist',{recursive:true});fs.copyFileSync('src/index.js','dist/index.js');fs.copyFileSync('src/index.d.ts','dist/index.d.ts')\""
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "homepage": "https://www.init.computer/docs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/init-computer/init.git",
+    "directory": "packages/sdk"
+  },
+  "bugs": {
+    "url": "https://github.com/init-computer/init/issues"
+  },
+  "keywords": [
+    "init",
+    "backend",
+    "api",
+    "sdk",
+    "javascript",
+    "typescript"
+  ]
+}

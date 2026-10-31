@@ -3,16 +3,19 @@
   "name": "io.github.init-computer/init",
   "description": "Init is the backend engineer for your coding agent.",
   "repository": {
-    "url": "https://github.com/init-computer/init-mcp",
-    "source": "github"
+    "url": "https://github.com/init-computer/init",
+    "source": "github",
+    "subfolder": "packages/mcp"
   },
-  "version": "0.1.7",
+  "version": "0.1.8",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "@init-computer/mcp",
-      "version": "0.1.7",
-      "transport": { "type": "stdio" },
+      "version": "0.1.8",
+      "transport": {
+        "type": "stdio"
+      },
       "environmentVariables": [
         {
           "name": "INIT_API_KEY",

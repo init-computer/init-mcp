@@ -1,0 +1,36 @@
+{
+  "name": "@init-computer/cli",
+  "version": "0.1.12",
+  "description": "Init is a programmable backend platform. Use the official CLI to generate, deploy, and run backend endpoints from your terminal.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "init": "bin/init.js"
+  },
+  "files": [
+    "bin",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "@init-computer/sdk": "^0.1.11"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "homepage": "https://www.init.computer/docs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/init-computer/init.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/init-computer/init/issues"
+  },
+  "keywords": [
+    "init",
+    "backend",
+    "api",
+    "cli",
+    "developer-tools"
+  ]
+}

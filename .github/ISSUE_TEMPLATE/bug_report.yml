@@ -1,0 +1,25 @@
+name: Bug report
+description: Something in the CLI, SDK or MCP server is broken
+labels: [bug]
+body:
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package
+      options: ["@init-computer/cli", "@init-computer/sdk", "@init-computer/mcp"]
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version and Node.js version
+      placeholder: "cli 0.1.12, Node 22.11"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+      description: Include the command or code you ran. Remove API keys and private endpoint URLs.
+    validations:
+      required: true

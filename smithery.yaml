@@ -1,0 +1,13 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required: [initApiKey]
+    properties:
+      initApiKey:
+        type: string
+        description: Your Init API key (init_sk_...). Get one at https://www.init.computer
+  commandFunction: |-
+    (config) => ({ command: "node", args: ["packages/mcp/bin/init-mcp.js"], env: { INIT_API_KEY: config.initApiKey } })
+build:
+  dockerfile: Dockerfile

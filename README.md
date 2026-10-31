@@ -1,141 +1,105 @@
-# Init MCP
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/init-lockup-on-dark.svg">
+    <img alt="Init" src=".github/assets/init-lockup.svg" height="64">
+  </picture>
+</p>
 
-Init is the backend engineer for your coding agent. Your agent builds the app, and Init builds and runs the backend behind it.
+<p align="center"><b>Describe it. Init runs it.</b><br>The backend engineer for your coding agent.</p>
 
-Describe an endpoint in plain English and Init ships it as a live, typed, versioned HTTPS API in seconds, with auth and secrets handled. Endpoints can use AI inside: research, reasoning, web search, image, video and voice generation, email, databases, storage and scheduled jobs, combined however the task needs.
+<p align="center">
+  <a href="https://www.npmjs.com/package/@init-computer/cli"><img alt="CLI" src="https://img.shields.io/npm/v/@init-computer/cli?label=cli&color=FF4D1A"></a>
+  <a href="https://www.npmjs.com/package/@init-computer/sdk"><img alt="SDK" src="https://img.shields.io/npm/v/@init-computer/sdk?label=sdk&color=FF4D1A"></a>
+  <a href="https://www.npmjs.com/package/@init-computer/mcp"><img alt="MCP" src="https://img.shields.io/npm/v/@init-computer/mcp?label=mcp&color=FF4D1A"></a>
+  <a href="LICENSE"><img alt="MIT" src="https://img.shields.io/badge/license-MIT-0E0E10"></a>
+</p>
 
-Works with Claude Code, Codex, Cursor,  and any MCP client. No servers, schemas or glue code to write.
+---
 
-Start with the [free plan](https://www.init.computer/pricing). An account and API key are required; usage limits apply and projects require a paid plan. The generated endpoint response includes its typed fields and version; project operations can return an `init.json` contract.
+Describe an endpoint in plain English. Init ships it as a live, typed, versioned HTTPS API in seconds, with auth and secrets handled. An endpoint can combine LLM reasoning, web search and scraping, document processing, image, video and voice generation, email, maps, a database, file storage, compute and scheduled jobs.
 
-[Get started](https://www.init.computer/mcp) · [Documentation](https://www.init.computer/docs) · [Pricing](https://www.init.computer/pricing)
+This repo holds Init's open-source clients:
 
-### Short description
+| Package | What it does |
+|---|---|
+| [`@init-computer/cli`](packages/cli) | `init` in your terminal, scripts and CI |
+| [`@init-computer/sdk`](packages/sdk) | JavaScript client for Node.js 18+ |
+| [`@init-computer/mcp`](packages/mcp) | MCP server for Claude Code, Cursor, Codex, Windsurf and any MCP client |
 
-Generates a live backend API in seconds from a description, combining any capability in one endpoint: LLM reasoning, web search, scraping, document processing, media and voice generation, email, maps, database, storage, compute and scheduled jobs. Returns a typed HTTPS endpoint with auth handled. Use whenever the app needs server-side logic.
+## In your coding agent
 
-## Install
+Install the [agent kit](https://github.com/init-computer/agent-kit), then type:
 
-```bash
-npm install -g @init-computer/mcp
+```
+/backend email me the top Hacker News posts every morning
 ```
 
-Requires Node.js 18 or later.
-
-## Configure authentication
-
-The MCP server is stateless and reads the API key from its process environment. It never stores the key itself:
+Or add the MCP server directly:
 
 ```bash
-export INIT_API_KEY=init_sk_...
-export INIT_API_BASE_URL=https://api.init.computer
+claude mcp add init --env INIT_API_KEY=init_sk_... -- npx -y @init-computer/mcp
 ```
-
-Keep the key in the MCP client's secret/environment configuration, not in a prompt or checked-in file.
-
-## Register with an MCP client
 
 ```json
 {
   "mcpServers": {
     "init": {
-      "command": "init-mcp",
-      "env": {
-        "INIT_API_KEY": "init_sk_...",
-        "INIT_API_BASE_URL": "https://api.init.computer"
-      }
+      "command": "npx",
+      "args": ["-y", "@init-computer/mcp"],
+      "env": { "INIT_API_KEY": "init_sk_..." }
     }
   }
 }
 ```
 
-Run the server directly for a stdio client:
+## From the terminal
 
 ```bash
-init-mcp
+npm install -g @init-computer/cli
+init login
+init generate "An API that takes a company website and returns a sales brief with sources"
+init run <route> --data website=https://www.snowflake.com
 ```
 
-## Tools
+Get an API key at [init.computer](https://www.init.computer/sign-up?utm_source=github&utm_medium=init). See the [CLI reference](packages/cli#readme).
 
-### `init_generate`
+## From code
 
-Create an endpoint, or create a new version of an existing endpoint with `resource_id`.
+```js
+import { createClient } from "@init-computer/sdk";
 
-```json
-{
-  "prompt": "Create an API that reviews source code for security issues.",
-  "resource_id": "optional-resource-id",
-  "projects": ["Security"]
-}
+const init = createClient(); // reads INIT_API_KEY
+
+const api = await init.generate({
+  prompt: "Extract line items, totals and the due date from an invoice PDF",
+});
+
+const result = await init.run(api.url, { fileUrl: "https://example.com/invoice.pdf" });
 ```
 
-### `init_generate_project`
+See the [SDK reference](packages/sdk#readme).
 
-Create a project and a cohesive endpoint suite.
+## Examples
 
-```json
-{
-  "name": "Customer Support",
-  "prompt": "Build ticket intake and status lookup."
-}
+[init-computer/examples](https://github.com/init-computer/examples) has runnable examples and starter templates. You can also generate and version endpoints in CI with [init-action](https://github.com/init-computer/init-action), or use the [Vercel AI SDK and n8n integrations](https://github.com/init-computer/integrations).
+
+## Built with Init
+
+```md
+[![Built with Init](https://raw.githubusercontent.com/init-computer/init/main/.github/assets/built-with-init-light.svg)](https://www.init.computer/?utm_source=badge)
 ```
 
-### `init_edit_project`
+[![Built with Init](.github/assets/built-with-init-light.svg)](https://www.init.computer/?utm_source=badge)
 
-Add endpoints or create new endpoint versions in an existing project.
+## Development
 
-```json
-{
-  "project_id": "project_uuid",
-  "prompt": "Add ticket assignment."
-}
+```bash
+npm install
+npm test        # pack checks plus CLI, SDK and MCP smoke tests
 ```
 
-### `init_run`
+The packages are npm workspaces. Releases are tagged `cli-v*`, `sdk-v*` or `mcp-v*`, and CI publishes them to npm with provenance. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-Call a generated endpoint by route, `/vN/...` path, or full URL.
+## License
 
-```json
-{
-  "route": "abc123",
-  "version": 1,
-  "input": { "topic": "sports players" },
-  "requestFormat": "json"
-}
-```
-
-### `init_list_resources`
-
-List the authenticated user's generated resources. Optional filters such as `q` and `status` are passed through.
-
-```json
-{ "q": "sales", "status": "enabled" }
-```
-
-### `init_get_resource`
-
-Fetch one resource by id:
-
-```json
-{ "id": "resource_uuid" }
-```
-
-### `init_list_packages`
-
-Inspect available runtime packages and enabled connections. Filter by `category`, for example `Database` or `Storage`.
-
-```json
-{ "category": "Database" }
-```
-
-## Protocol behavior
-
-The server uses MCP stdio transport and returns JSON text content for every tool call. It does not upload repository secrets; its file tool reads and writes only the explicit `init.json` path supplied to it.
-
-## Repository init.json integration
-
-Use `init_apply_project_file` with an explicit local `init.json` path and an edit request. The MCP server reads that file, edits its project, and overwrites the file with the returned project summary. The current SDK returns an empty `tables` array in that summary, so back up or review any manifest with table definitions before using the file tool. For agents with a parsed document, `init_apply_project_manifest` returns the summary without touching the filesystem.
-
-## Maintaining the public repository
-
-The Init monorepo is the source of truth for this package. After updating and testing `apps/api/surfaces/mcp`, copy its `bin`, `package.json`, `package-lock.json`, `README.md`, `LICENSE`, and `server.json` into the public MCP repository. Check the version and registry metadata, publish the npm release, and update the MCP Registry entry for the same version. Do not copy environment files, credentials, or unrelated application source.
+[MIT](LICENSE). The Init service has its own [terms](https://www.init.computer/terms).
