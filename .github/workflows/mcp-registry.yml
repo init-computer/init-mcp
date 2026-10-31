@@ -1,0 +1,26 @@
+name: Publish to MCP registry
+on:
+  push:
+    tags: ["mcp-v*"]
+  workflow_dispatch:
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for the npm package
+        run: |
+          version=$(node -p "require('./packages/mcp/package.json').version")
+          for i in $(seq 1 30); do
+            npm view "@init-computer/mcp@$version" version && exit 0
+            sleep 20
+          done
+          echo "@init-computer/mcp@$version is not on npm" && exit 1
+      - name: Install mcp-publisher
+        run: curl -fsSL "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_linux_amd64.tar.gz" | tar xz mcp-publisher
+      - run: ./mcp-publisher login github-oidc
+      - run: ../../mcp-publisher publish
+        working-directory: packages/mcp

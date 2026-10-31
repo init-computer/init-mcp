@@ -23,7 +23,14 @@ jobs:
           actual=$(node -p "require('./packages/$name/package.json').version")
           test "$version" = "$actual" || { echo "Tag $GITHUB_REF_NAME does not match packages/$name version $actual"; exit 1; }
           echo "PACKAGE=$name" >> "$GITHUB_ENV"
-      - run: npm publish -w "@init-computer/$PACKAGE" --provenance --access public
+      - name: Publish to npm
+        run: |
+          version=$(node -p "require('./packages/$PACKAGE/package.json').version")
+          if npm view "@init-computer/$PACKAGE@$version" version >/dev/null 2>&1; then
+            echo "@init-computer/$PACKAGE@$version is already on npm"
+          else
+            npm publish -w "@init-computer/$PACKAGE" --provenance --access public
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: gh release create "$GITHUB_REF_NAME" --generate-notes --title "$GITHUB_REF_NAME"
